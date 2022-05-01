@@ -1,0 +1,8 @@
+# Input / output for quick testing
+*.txt
+
+# Build files
+*.json
+.cache
+tp1
+obj
