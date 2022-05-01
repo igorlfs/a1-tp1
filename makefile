@@ -9,12 +9,15 @@ CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -fstandalone-debug
 ### g++ flags
 #CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -Ilib
 
+# Objects
 BUILD = obj
 
+# Binaries
 BIN = tp1
+TEST = test
 
 # Source
-CPP_SOURCE=$(wildcard src/*)
+CPP_SOURCE=$(filter-out src/main.cpp, $(wildcard src/*))
  
 # Headers
 HPP_SOURCE=$(wildcard lib/*)
@@ -28,13 +31,24 @@ RM = rm -rf
 #
 # Compilation and linking
 #
-all: obj $(BIN)
- 
-$(BIN): $(OBJ)
+all: obj $(BIN) tst
+
+$(BIN): $(OBJ) ./$(BUILD)/main.o
 	$(CXX) $^ -o $@
 	@ echo ' '
  
 ./$(BUILD)/main.o: ./src/main.cpp $(HPP_SOURCE)
+	$(CXX) $< $(CXXFLAGS) -o $@
+	@ echo ' '
+
+tst: obj $(TEST)
+
+$(TEST): $(OBJ) ./$(BUILD)/test.o
+	$(CXX) $^ -lgtest -o $@
+	@ echo ' '
+	./$(TEST)
+
+./$(BUILD)/test.o: ./tests/test.cpp $(HPP_SOURCE)
 	$(CXX) $< $(CXXFLAGS) -o $@
 	@ echo ' '
  
@@ -46,7 +60,7 @@ obj:
 	@ mkdir -p $(BUILD)
  
 clean:
-	@ $(RM) ./$(BUILD)/*.o $(BIN) *~
+	@ $(RM) ./$(BUILD)/*.o $(BIN) *~ $(TEST)
 	@ rmdir $(BUILD)
  
-.PHONY: all clean obj
+.PHONY: all clean obj tst

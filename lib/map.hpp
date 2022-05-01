@@ -1,11 +1,14 @@
 #pragma once
 
+#include <iostream>
 #include <map>
 #include <queue>
 #include <set>
 #include <vector>
 
+using std::istream;
 using std::map;
+using std::ostream;
 using std::pair;
 using std::queue;
 using std::set;
@@ -31,7 +34,8 @@ class Map {
     /// @brief Aloca memória para um mapa de dimensões n x m
     /// @param n, número de linhas do mapa
     /// @param m, número de colunas do mapa
-    Map(const int &n, const int &m);
+    Map(const int &n, const int &m, istream &_istream = std::cin,
+        ostream &_ostream = std::cout);
 
     // Operações
 
@@ -48,6 +52,8 @@ class Map {
     [[nodiscard]] map<char, pair<int, int>> getBikes() const {
         return this->digitsPositions;
     }
+    /// @brief Retorne a matriz que representa o mapa
+    [[nodiscard]] vector<vector<char>> getMap() const { return this->charMap; }
 
     // Pesquisa
 
@@ -58,27 +64,6 @@ class Map {
     /// @return Vetor com as distâncias de cada letra, tal que 'a' -> 0, etc
     [[nodiscard]] vector<int> BFS(const int &row, const int &col) const;
 
-  private:
-    static constexpr char PROHIBITED = '-';
-
-    // Dimensões (letras únicas em conformidade com a especificação)
-    int M;
-    int N;
-
-    vector<vector<char>> charMap;
-
-    map<char, pair<int, int>> lettersPositions; // Usuários
-    map<char, pair<int, int>> digitsPositions;  // Bicicletas
-
-    // Ajudantes
-
-    /// @brief Pesquisa os vizinhos de uma dada célula na execução da BFS
-    /// @param visited, matriz de posições visitadas
-    /// @param queue, fila que controla a execução da BFS
-    /// @param cell, célula cujos cizinhos serão buscados
-    void BFSHelper(vector<vector<bool>> &visited, queue<Cell> &queue,
-                   const Cell &cell) const;
-
     // Lookup
 
     /// @brief Verifica se a célcula na posição (row,col) é válida
@@ -88,4 +73,27 @@ class Map {
     /// @return inválido se proibido, fora do mapa ou visitado
     [[nodiscard]] bool isValid(const vector<vector<bool>> &visited,
                                const int &row, const int &col) const;
+
+  private:
+    static constexpr char PROHIBITED = '-';
+
+    // Dimensões (letras únicas em conformidade com a especificação)
+    int M;
+    int N;
+
+    vector<vector<char>> charMap;
+
+    istream &inStream;
+    ostream &outStream;
+
+    map<char, pair<int, int>> digitsPositions; // Bicicletas
+
+    // Ajudantes
+
+    /// @brief Pesquisa os vizinhos de uma dada célula na execução da BFS
+    /// @param visited, matriz de posições visitadas
+    /// @param queue, fila que controla a execução da BFS
+    /// @param cell, célula cujos cizinhos serão buscados
+    void BFSHelper(vector<vector<bool>> &visited, queue<Cell> &queue,
+                   const Cell &cell) const;
 };

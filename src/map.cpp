@@ -1,16 +1,11 @@
 #include "map.hpp"
 
 #include <array>
-#include <iostream>
 
 using std::array;
-using std::cin;
-using std::cout;
-using std::endl;
 
-Map::Map(const int &n, const int &m) {
-    this->N = n;
-    this->M = m;
+Map::Map(const int &n, const int &m, istream &_istream, ostream &_ostream)
+    : M(m), N(n), inStream(_istream), outStream(_ostream) {
     this->charMap.resize(this->N);
     for (auto &it : this->charMap) {
         it.resize(this->M);
@@ -21,10 +16,8 @@ void Map::read() {
     for (int i = 0; i < this->N; ++i) {
         for (int j = 0; j < this->M; ++j) {
             char c;
-            cin >> c;
-            if (isalpha(c) != 0) {
-                this->lettersPositions[c] = {i, j};
-            } else if (isdigit(c) != 0) {
+            this->inStream >> c;
+            if (isdigit(c) != 0) {
                 this->digitsPositions[c] = {i, j};
             }
             this->charMap[i][j] = c;
@@ -35,9 +28,9 @@ void Map::read() {
 void Map::print() const {
     for (int i = 0; i < this->N; ++i) {
         for (int j = 0; j < this->M; ++j) {
-            cout << this->charMap[i][j];
+            this->outStream << this->charMap[i][j];
         }
-        cout << endl;
+        this->outStream << std::endl;
     }
 }
 
