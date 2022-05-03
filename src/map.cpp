@@ -1,5 +1,6 @@
 #include "map.hpp"
 
+#include "msgassert.hpp"
 #include <array>
 
 using std::array;
@@ -43,7 +44,8 @@ vector<int> Map::BFS(const int &row, const int &col) const {
     }
 
     extern int v;
-    vector<int> distances(v);
+    constexpr short INVALID_DISTANCE = -1;
+    vector<int> distances(v, INVALID_DISTANCE);
 
     // Visita a "raiz"
     const Cell SOURCE(row, col, 0);
@@ -62,6 +64,14 @@ vector<int> Map::BFS(const int &row, const int &col) const {
         }
 
         this->BFSHelper(visited, queue, CELL);
+    }
+
+    // Confere se foi possível calcular a distância para toda letra (usuário)
+    for (uint i = 0; i < distances.size(); ++i) {
+        assert(distances[i] != INVALID_DISTANCE,
+               "A distância de '" << this->charMap[row][col] << "' para '"
+                                  << char(i + 'a')
+                                  << "' não pôde ser calculada");
     }
 
     return distances;

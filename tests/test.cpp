@@ -71,6 +71,19 @@ TEST(map, BFS) {
     EXPECT_EQ(EXPECTED_1, ACTUAL_1);
 }
 
+TEST(map, impossibleToCalculateDistance) {
+    const string INPUT = "a-*0\n--**\n*-**\nb*1*\n";
+
+    istringstream fakeInput(INPUT);
+    constexpr int MAP_SIZE = 4;
+    Map m(MAP_SIZE, MAP_SIZE, fakeInput);
+
+    m.read();
+
+    ASSERT_DEATH(m.BFS(0, 3),
+                 "A distância de '0' para 'a' não pôde ser calculada");
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
