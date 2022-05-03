@@ -49,11 +49,10 @@ class Map {
 
     /// @brief Retorne as bicicletas (números) do mapa
     /// @return Mapa de bicicleta para sua posição
-    [[nodiscard]] map<char, pair<int, int>> getBikes() const {
-        return this->digitsPositions;
-    }
+    map<char, pair<int, int>> getBikes() const { return this->digitsPositions; }
+
     /// @brief Retorne a matriz que representa o mapa
-    [[nodiscard]] vector<vector<char>> getMap() const { return this->charMap; }
+    vector<vector<char>> getMap() const { return this->charMap; }
 
     // Pesquisa
 
@@ -62,7 +61,7 @@ class Map {
     /// @param row, linha inicial
     /// @param col, ooluna inicial
     /// @return Vetor com as distâncias de cada letra, tal que 'a' -> 0, etc
-    [[nodiscard]] vector<int> BFS(const int &row, const int &col) const;
+    vector<int> BFS(const int &row, const int &col) const;
 
     // Lookup
 
@@ -71,8 +70,8 @@ class Map {
     /// @param row, linha da célula
     /// @param col, ooluna da célula
     /// @return inválido se proibido, fora do mapa ou visitado
-    [[nodiscard]] bool isValid(const vector<vector<bool>> &visited,
-                               const int &row, const int &col) const;
+    bool isValid(const vector<vector<bool>> &visited, const int &row,
+                 const int &col) const;
 
   private:
     static constexpr char PROHIBITED = '-';
