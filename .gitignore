@@ -5,5 +5,5 @@
 *.json
 .cache
 tp01
-test
+tests
 obj

@@ -72,11 +72,10 @@ class Map {
   private:
     static constexpr char PROHIBITED = '-';
 
+    // Letras únicas em conformidade com a especificação
     int V = 0; // Número de visitantes
-
-    // Dimensões (letras únicas em conformidade com a especificação)
-    int N; // Linhas
-    int M; // Colunas
+    int N;     // Linhas
+    int M;     // Colunas
 
     vector<vector<char>> charMap;
 
