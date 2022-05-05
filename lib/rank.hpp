@@ -26,12 +26,12 @@ struct Rank {
         // Use lambdas para comparar os elementos do vetor original
         if (reverse) {
             const auto COMPARATOR = [&v](const int &a, const int &b) {
-                return v[a] > v[b];
+                return v.at(a) > v.at(b);
             };
             stable_sort(sortedIndexes.begin(), sortedIndexes.end(), COMPARATOR);
         } else {
             const auto COMPARATOR = [&v](const int &a, const int &b) {
-                return v[a] < v[b];
+                return v.at(a) < v.at(b);
             };
             stable_sort(sortedIndexes.begin(), sortedIndexes.end(), COMPARATOR);
         }

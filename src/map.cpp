@@ -23,7 +23,7 @@ int Map::read() {
             } else if (isalpha(c) != 0) {
                 this->V++;
             }
-            this->charMap[i][j] = c;
+            this->charMap.at(i).at(j) = c;
         }
     }
     return this->V;
@@ -32,7 +32,7 @@ int Map::read() {
 void Map::print() const {
     for (int i = 0; i < this->N; ++i) {
         for (int j = 0; j < this->M; ++j) {
-            this->outStream << this->charMap[i][j];
+            this->outStream << this->charMap.at(i).at(j);
         }
         this->outStream << std::endl;
     }
@@ -78,8 +78,8 @@ vector<int> Map::BFS(const int &row, const int &col) const {
 
     // Confere se foi possível calcular a distância para toda letra (usuário)
     for (uint i = 0; i < distances.size(); ++i) {
-        assert(distances[i] != INVALID_DISTANCE,
-               "A distância de '" << this->charMap[row][col] << "' para '"
+        assert(distances.at(i) != INVALID_DISTANCE,
+               "A distância de '" << this->charMap.at(row).at(col) << "' para '"
                                   << char(i + 'a')
                                   << "' não pôde ser calculada");
     }
