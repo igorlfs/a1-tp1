@@ -1,29 +1,31 @@
+# Directories
+BUILD_DIR = obj
+SRC_DIR = src
+LIB_DIR = lib
+
 # TODO: use g++
 # Compiler
 CXX = clang++
 #CXX = g++
 
-# Flags
-# Compile, more warnings, C++17, enable debugging symbols and include path
-CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -fstandalone-debug -Ilib
-### g++ flags
-#CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -Ilib
-
-# Objects
-BUILD = obj
+# Flags: Compile, more warnings, use C++17, enable debugging symbols and include path
+# clang++
+CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -fstandalone-debug -I$(LIB_DIR)
+# g++
+#CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -I$(LIB_DIR)
 
 # Binaries
-BIN = tp1
-TEST = test
+TARGET = tp01
+TESTS = tests
 
 # Source
-CPP_SOURCE=$(filter-out src/main.cpp, $(wildcard src/*))
+CPP_SOURCE = $(filter-out $(SRC_DIR)/main.cpp $(SRC_DIR)/test.cpp, $(wildcard $(SRC_DIR)/*))
  
 # Headers
-HPP_SOURCE=$(wildcard lib/*)
+HPP_SOURCE = $(wildcard $(LIB_DIR)/*)
  
 # Objects
-OBJ=$(subst .cpp,.o,$(subst src,$(BUILD),$(CPP_SOURCE)))
+OBJ = $(subst .cpp,.o,$(subst $(SRC_DIR),$(BUILD_DIR),$(CPP_SOURCE)))
  
 # Command used at clean target
 RM = rm -rf
@@ -31,36 +33,36 @@ RM = rm -rf
 #
 # Compilation and linking
 #
-all: obj $(BIN) tst
+all: obj $(TARGET) $(TESTS)
 
-$(BIN): $(OBJ) ./$(BUILD)/main.o
+$(TARGET): $(OBJ) ./$(BUILD_DIR)/main.o
 	$(CXX) $^ -o $@
 	@ echo ' '
  
-./$(BUILD)/main.o: ./src/main.cpp $(HPP_SOURCE)
+./$(BUILD_DIR)/main.o: ./$(SRC_DIR)/main.cpp $(HPP_SOURCE)
 	$(CXX) $< $(CXXFLAGS) -o $@
 	@ echo ' '
 
-tst: obj $(TEST)
+test: obj $(TESTS)
 
-$(TEST): $(OBJ) ./$(BUILD)/test.o
+$(TESTS): $(OBJ) $(BUILD_DIR)/test.o
 	$(CXX) $^ -lgtest -o $@
 	@ echo ' '
-	./$(TEST)
+	./$(TESTS)
 
-./$(BUILD)/test.o: ./tests/test.cpp $(HPP_SOURCE)
+./$(BUILD_DIR)/test.o: ./$(SRC_DIR)/test.cpp $(HPP_SOURCE)
 	$(CXX) $< $(CXXFLAGS) -o $@
 	@ echo ' '
- 
-./$(BUILD)/%.o: ./src/%.cpp ./lib/%.hpp
+
+./$(BUILD_DIR)/%.o: ./$(SRC_DIR)/%.cpp ./$(LIB_DIR)/%.hpp
 	$(CXX) $< $(CXXFLAGS) -o $@
 	@ echo ' '
  
 obj:
-	@ mkdir -p $(BUILD)
+	@ test -d $(BUILD_DIR) && true || mkdir -p $(BUILD_DIR)
  
 clean:
-	@ $(RM) ./$(BUILD)/*.o $(BIN) *~ $(TEST)
-	@ rmdir $(BUILD)
+	@ $(RM) ./$(BUILD_DIR)/*.o $(TARGET) $(TESTS) *~
+	@ test -d $(BUILD_DIR) && rmdir $(BUILD_DIR) || true
  
-.PHONY: all clean obj tst
+.PHONY: all clean obj test
