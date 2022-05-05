@@ -9,7 +9,7 @@ using std::vector;
 /// @param size, quantidade de usuários
 /// @return matriz com as pontuações atribuídas
 vector<vector<int>> readScores(const int &size) {
-    vector<vector<int>> scores;
+    vector<vector<int>> scores(size);
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             char c;
