@@ -1,4 +1,5 @@
 #include "map.hpp"
+#include "msgassert.hpp"
 #include "rank.hpp"
 #include <iostream>
 
@@ -28,7 +29,10 @@ int main() {
     cin >> visitors >> mapRows >> mapCols;
 
     Map regionMap(mapRows, mapCols);
-    regionMap.read();
+    const int V = regionMap.read();
+    assert(V == visitors, "O número de visitantes no mapa ("
+                              << V << ") não é igual ao passado na entrada ("
+                              << visitors << ")\n");
 
     vector<vector<int>> distances = regionMap.getDistancesBikesToUsers();
     vector<vector<int>> prefListBikes(visitors);

@@ -39,10 +39,11 @@ class Map {
 
     // Operações
 
-    /// @brief Lê o mapa, caractere a caractere da entrada padrão
-    void read();
+    /// @brief Lê o mapa, caractere a caractere
+    /// @return Número de visitantes que foram contados no mapa
+    int read();
 
-    /// @brief Escreve o mapa, caractere a caractere para a saída padrão
+    /// @brief Escreve o mapa, caractere a caractere para a saída outStream
     void print() const;
 
     // Getters

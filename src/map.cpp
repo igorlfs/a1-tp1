@@ -13,7 +13,7 @@ Map::Map(const int &n, const int &m, istream &_istream, ostream &_ostream)
     }
 }
 
-void Map::read() {
+int Map::read() {
     for (int i = 0; i < this->N; ++i) {
         for (int j = 0; j < this->M; ++j) {
             char c;
@@ -26,6 +26,7 @@ void Map::read() {
             this->charMap[i][j] = c;
         }
     }
+    return this->V;
 }
 
 void Map::print() const {

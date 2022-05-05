@@ -4,6 +4,7 @@
 using namespace std;
 
 TEST(map, readAndPrint) {
+    const int NUM_VISITORS = 2;
     const vector<vector<char>> EXPECTED = {{'a', '*', '*', '0'},
                                            {'-', '-', '*', '*'},
                                            {'*', '-', '*', '*'},
@@ -17,7 +18,7 @@ TEST(map, readAndPrint) {
     constexpr int MAP_SIZE = 4;
     Map m(MAP_SIZE, MAP_SIZE, fakeInput, fakeOutput);
 
-    m.read();
+    EXPECT_EQ(m.read(), NUM_VISITORS);
     m.print();
     const string ACTUAL_OUTPUT = fakeOutput.str();
 
