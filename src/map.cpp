@@ -20,6 +20,8 @@ void Map::read() {
             this->inStream >> c;
             if (isdigit(c) != 0) {
                 this->digitsPositions[c] = {i, j};
+            } else if (isalpha(c) != 0) {
+                this->V++;
             }
             this->charMap[i][j] = c;
         }
@@ -45,16 +47,14 @@ vector<vector<int>> Map::getDistancesBikesToUsers() {
 }
 
 vector<int> Map::BFS(const int &row, const int &col) const {
+    constexpr short INVALID_DISTANCE = -1;
+    vector<int> distances(this->V, INVALID_DISTANCE);
 
     // Define a matriz de visitados
     vector<vector<bool>> visited(this->N);
     for (auto &vi : visited) {
         vi.assign(this->M, false);
     }
-
-    extern int v;
-    constexpr short INVALID_DISTANCE = -1;
-    vector<int> distances(v, INVALID_DISTANCE);
 
     // Visita a "raiz"
     const Cell SOURCE(row, col, 0);

@@ -3,8 +3,6 @@
 
 using namespace std;
 
-int v = 2;
-
 TEST(map, readAndPrint) {
     const vector<vector<char>> EXPECTED = {{'a', '*', '*', '0'},
                                            {'-', '-', '*', '*'},

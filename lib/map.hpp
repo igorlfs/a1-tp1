@@ -71,6 +71,8 @@ class Map {
   private:
     static constexpr char PROHIBITED = '-';
 
+    int V = 0; // Número de visitantes
+
     // Dimensões (letras únicas em conformidade com a especificação)
     int N; // Linhas
     int M; // Colunas
