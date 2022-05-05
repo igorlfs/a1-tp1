@@ -6,7 +6,7 @@
 using std::array;
 
 Map::Map(const int &n, const int &m, istream &_istream, ostream &_ostream)
-    : M(m), N(n), inStream(_istream), outStream(_ostream) {
+    : N(n), M(m), inStream(_istream), outStream(_ostream) {
     this->charMap.resize(this->N);
     for (auto &it : this->charMap) {
         it.resize(this->M);
@@ -98,7 +98,7 @@ void Map::BFSHelper(vector<vector<bool>> &visited, queue<Cell> &queue,
 bool Map::isValid(const vector<vector<bool>> &visited, const int &row,
                   const int &col) const {
     // Checagem de borda
-    if (row < 0 || col < 0 || col >= this->N || row >= this->M) {
+    if (row < 0 || col < 0 || col >= this->M || row >= this->N) {
         return false;
     }
 

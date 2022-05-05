@@ -77,8 +77,8 @@ class Map {
     static constexpr char PROHIBITED = '-';
 
     // Dimensões (letras únicas em conformidade com a especificação)
-    int M;
-    int N;
+    int N; // Linhas
+    int M; // Colunas
 
     vector<vector<char>> charMap;
 
