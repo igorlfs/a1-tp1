@@ -35,6 +35,15 @@ void Map::print() const {
     }
 }
 
+vector<vector<int>> Map::getDistancesBikesToUsers() {
+    vector<vector<int>> distances;
+    for (const auto &bike : this->digitsPositions) {
+        const pair<int, int> LOCATION = bike.second;
+        distances.push_back(this->BFS(LOCATION.first, LOCATION.second));
+    }
+    return distances;
+}
+
 vector<int> Map::BFS(const int &row, const int &col) const {
 
     // Define a matriz de visitados

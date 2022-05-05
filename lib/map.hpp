@@ -54,14 +54,9 @@ class Map {
     /// @brief Retorne a matriz que representa o mapa
     vector<vector<char>> getMap() const { return this->charMap; }
 
-    // Pesquisa
-
-    /// @brief Começando de uma posição (row,col) encontre as distâncias para
-    /// todas as letras (usuários)
-    /// @param row, linha inicial
-    /// @param col, ooluna inicial
-    /// @return Vetor com as distâncias de cada letra, tal que 'a' -> 0, etc
-    vector<int> BFS(const int &row, const int &col) const;
+    /// @brief Calcula a distância de cada bicicleta para todos os usuários
+    /// @return Matriz com as distâncias: linha -> bicicleta, coluna -> usuário
+    vector<vector<int>> getDistancesBikesToUsers();
 
     // Lookup
 
@@ -86,6 +81,15 @@ class Map {
     ostream &outStream;
 
     map<char, pair<int, int>> digitsPositions; // Bicicletas
+
+    // Pesquisa
+
+    /// @brief Começando de uma posição (row,col) encontre as distâncias para
+    /// todas as letras (usuários)
+    /// @param row, linha inicial
+    /// @param col, ooluna inicial
+    /// @return Vetor com as distâncias de cada letra, tal que 'a' -> 0, etc
+    vector<int> BFS(const int &row, const int &col) const;
 
     // Ajudantes
 

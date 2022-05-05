@@ -53,9 +53,8 @@ TEST(map, isValid) {
     EXPECT_TRUE(m.isValid(VISITED, 0, 0));
 }
 
-TEST(map, BFS) {
-    const vector<int> EXPECTED_0{3, 6};
-    const vector<int> EXPECTED_1{5, 2};
+TEST(map, getDistances) {
+    const vector<vector<int>> EXPECTED{{3, 6}, {5, 2}};
 
     const string INPUT = "a**0\n--**\n*-**\nb*1*\n";
     istringstream fakeInput(INPUT);
@@ -64,14 +63,13 @@ TEST(map, BFS) {
 
     m.read();
 
-    const vector<int> ACTUAL_0 = m.BFS(0, 3);
-    const vector<int> ACTUAL_1 = m.BFS(3, 2);
+    const vector<vector<int>> ACTUAL = m.getDistancesBikesToUsers();
 
-    EXPECT_EQ(EXPECTED_0, ACTUAL_0);
-    EXPECT_EQ(EXPECTED_1, ACTUAL_1);
+    EXPECT_EQ(EXPECTED, ACTUAL);
+    EXPECT_EQ(EXPECTED, ACTUAL);
 }
 
-TEST(map, impossibleToCalculateDistance) {
+TEST(map, distanceImpossibleToCalculate) {
     const string INPUT = "a-*0\n--**\n*-**\nb*1*\n";
 
     istringstream fakeInput(INPUT);
@@ -80,7 +78,7 @@ TEST(map, impossibleToCalculateDistance) {
 
     m.read();
 
-    ASSERT_DEATH(m.BFS(0, 3),
+    ASSERT_DEATH(m.getDistancesBikesToUsers(),
                  "A distância de '0' para 'a' não pôde ser calculada");
 }
 

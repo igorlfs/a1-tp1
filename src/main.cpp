@@ -28,15 +28,8 @@ int main() {
     Map regionMap(mapRows, mapCols);
     regionMap.read();
 
-    vector<vector<int>> distances(v);
+    vector<vector<int>> distances = regionMap.getDistancesBikesToUsers();
     vector<vector<int>> prefListBikes(v);
-    map<char, pair<int, int>> bikes = regionMap.getBikes();
-    int i = 0;
-    for (const auto &bike : bikes) {
-        const pair<int, int> LOCATION = bike.second;
-        distances[i] = regionMap.BFS(LOCATION.first, LOCATION.second);
-        i++;
-    }
     Rank::setPreferenceList(distances, prefListBikes, false);
 
     vector<vector<int>> bikeScores(v);
