@@ -6,8 +6,8 @@
 using std::cin;
 using std::vector;
 
-/// @brief leia as pontuações que cada usuário deu pra cada bicicleta
-/// @param size, quantidade de usuários
+/// @brief leia as pontuações que cada visitante deu pra cada bicicleta
+/// @param size, quantidade de visitantes
 /// @return matriz com as pontuações atribuídas
 vector<vector<int>> readScores(const int &size) {
     vector<vector<int>> scores(size);
@@ -34,13 +34,13 @@ int main() {
                               << V << ") não é igual ao passado na entrada ("
                               << visitors << ")\n");
 
-    vector<vector<int>> distances = regionMap.getDistancesBikesToUsers();
+    vector<vector<int>> distances = regionMap.getDistancesBikesToVisitors();
     vector<vector<int>> prefListBikes(visitors);
     Rank::setPreferenceList(distances, prefListBikes, false);
 
     vector<vector<int>> bikeScores = readScores(visitors);
-    vector<vector<int>> prefListUsers(visitors);
-    Rank::setPreferenceList(bikeScores, prefListUsers, true);
+    vector<vector<int>> prefListVisitors(visitors);
+    Rank::setPreferenceList(bikeScores, prefListVisitors, true);
 
     return 0;
 }

@@ -38,7 +38,7 @@ void Map::print() const {
     }
 }
 
-vector<vector<int>> Map::getDistancesBikesToUsers() {
+vector<vector<int>> Map::getDistancesBikesToVisitors() {
     vector<vector<int>> distances;
     for (const auto &bike : this->digitsPositions) {
         const pair<int, int> LOCATION = bike.second;
@@ -76,7 +76,7 @@ vector<int> Map::BFS(const int &row, const int &col) const {
         this->BFSHelper(visited, queue, CELL);
     }
 
-    // Confere se foi possível calcular a distância para toda letra (usuário)
+    // Confere se foi possível calcular a distância para toda letra (visitante)
     for (uint i = 0; i < distances.size(); ++i) {
         assert(distances.at(i) != INVALID_DISTANCE,
                "A distância de '" << this->charMap.at(row).at(col) << "' para '"

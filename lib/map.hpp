@@ -55,9 +55,9 @@ class Map {
     /// @brief Retorne a matriz que representa o mapa
     vector<vector<char>> getMap() const { return this->charMap; }
 
-    /// @brief Calcula a distância de cada bicicleta para todos os usuários
-    /// @return Matriz com as distâncias: linha -> bicicleta, coluna -> usuário
-    vector<vector<int>> getDistancesBikesToUsers();
+    /// @brief Calcula a distância de cada bicicleta para todos os visitantes
+    /// @return Matriz com distâncias: linha -> bicicleta, coluna -> visitante
+    vector<vector<int>> getDistancesBikesToVisitors();
 
     // Lookup
 
@@ -88,7 +88,7 @@ class Map {
     // Pesquisa
 
     /// @brief Começando de uma posição (row,col) encontre as distâncias para
-    /// todas as letras (usuários)
+    /// todas as letras (visitantes)
     /// @param row, linha inicial
     /// @param col, ooluna inicial
     /// @return Vetor com as distâncias de cada letra, tal que 'a' -> 0, etc
