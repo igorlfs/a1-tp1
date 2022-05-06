@@ -1,4 +1,5 @@
 #include "map.hpp"
+#include "rank.hpp"
 #include <gtest/gtest.h>
 
 using namespace std;
@@ -79,6 +80,19 @@ TEST(map, distanceImpossibleToCalculate) {
 
     ASSERT_DEATH(m.getDistancesBikesToVisitors(),
                  "A distância de '0' para 'a' não pôde ser calculada");
+}
+
+TEST(rank, sortIndexes) {
+    const vector<int> V = {5, 2, 1, 4, 3};
+
+    const vector<int> EXPECTED = {2, 1, 4, 3, 0};
+    const vector<int> EXPECTED_REVERSE = {0, 3, 4, 1, 2};
+
+    const vector<int> ACTUAL = Rank::sortIndexes(V, false);
+    const vector<int> ACTUAL_REVERSE = Rank::sortIndexes(V, true);
+
+    EXPECT_EQ(EXPECTED, ACTUAL);
+    EXPECT_EQ(EXPECTED_REVERSE, ACTUAL_REVERSE);
 }
 
 int main(int argc, char **argv) {

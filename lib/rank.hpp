@@ -4,6 +4,7 @@
 #include <numeric>   // std::iota
 #include <vector>
 
+using std::pair;
 using std::vector;
 
 /// @brief Agrupa métodos relacionados ao "rankeamento" de listas de
@@ -28,3 +29,11 @@ struct Rank {
                                   vector<vector<int>> &list,
                                   const bool &reverse);
 };
+
+// @brief Ordene comparando apenas o primeiro elemento
+// @param lhs, par à esquerda
+// @param rhs, par à direita
+// @return true se o primeiro elemento de lhs é menor que o de rhs
+inline bool comparator(const pair<int, int> &lhs, const pair<int, int> &rhs) {
+    return lhs.first < rhs.first;
+}

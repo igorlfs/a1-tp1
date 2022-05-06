@@ -1,22 +1,22 @@
 #include "rank.hpp"
 
 vector<int> Rank::sortIndexes(const vector<int> &v, const bool &reverse) {
-    vector<int> sortedIndexes(v.size());
+    const int SIZE = v.size();
+    vector<pair<int, int>> elementsAndIndexes(SIZE);
 
-    // Cria uma sequência incremental (ie, 0, 1, 2, ...) no array
-    iota(sortedIndexes.begin(), sortedIndexes.end(), 0);
+    for (int i = 0; i < SIZE; ++i) {
+        elementsAndIndexes.at(i) = {v[i], i};
+    }
 
-    // Use lambdas para comparar os elementos do vetor original
+    stable_sort(elementsAndIndexes.begin(), elementsAndIndexes.end());
+
+    vector<int> sortedIndexes(SIZE);
+    for (int i = 0; i < SIZE; ++i) {
+        sortedIndexes[i] = elementsAndIndexes[i].second;
+    }
+
     if (reverse) {
-        const auto COMPARATOR = [&v](const int &a, const int &b) {
-            return v.at(a) > v.at(b);
-        };
-        stable_sort(sortedIndexes.begin(), sortedIndexes.end(), COMPARATOR);
-    } else {
-        const auto COMPARATOR = [&v](const int &a, const int &b) {
-            return v.at(a) < v.at(b);
-        };
-        stable_sort(sortedIndexes.begin(), sortedIndexes.end(), COMPARATOR);
+        std::reverse(sortedIndexes.begin(), sortedIndexes.end());
     }
 
     return sortedIndexes;
