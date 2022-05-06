@@ -95,6 +95,23 @@ TEST(rank, sortIndexes) {
     EXPECT_EQ(EXPECTED_REVERSE, ACTUAL_REVERSE);
 }
 
+TEST(rank, setPrefList) {
+    const vector<vector<int>> V = {{5, 2, 1, 4, 3}, {5, 11, 7, 12, 8}};
+
+    const vector<vector<int>> EXPECTED_LIST = {{2, 1, 4, 3, 0},
+                                               {0, 2, 4, 1, 3}};
+    const vector<vector<int>> EXPECTED_LIST_REV = {{0, 3, 4, 1, 2},
+                                                   {3, 1, 4, 2, 0}};
+    vector<vector<int>> actualList(V.size());
+    vector<vector<int>> actualListRev(V.size());
+
+    Rank::setPreferenceList(V, actualList, false);
+    Rank::setPreferenceList(V, actualListRev, true);
+
+    EXPECT_EQ(EXPECTED_LIST, actualList);
+    EXPECT_EQ(EXPECTED_LIST_REV, actualListRev);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
