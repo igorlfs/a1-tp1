@@ -82,34 +82,42 @@ TEST(map, distanceImpossibleToCalculate) {
                  "A distância de '0' para 'a' não pôde ser calculada");
 }
 
-TEST(rank, sortIndexes) {
-    const vector<int> V = {5, 2, 1, 4, 3};
+TEST(rank, sortScores) {
+    const vector<vector<int>> INPUT = {
+        {9, 4, 2, 5, 3, 3, 4, 2},  {10, 9, 10, 9, 9, 9, 9, 1},
+        {8, 5, 4, 9, 3, 2, 1, 7},  {11, 3, 3, 4, 9, 8, 3, 5},
+        {10, 7, 7, 7, 8, 9, 4, 9}, {1, 3, 4, 5, 3, 4, 5, 1},
+        {3, 3, 2, 4, 8, 9, 1, 2},  {1, 1, 1, 1, 1, 1, 1, 1}};
 
-    const vector<int> EXPECTED = {2, 1, 4, 3, 0};
-    const vector<int> EXPECTED_REVERSE = {0, 3, 4, 1, 2};
+    const vector<vector<int>> EXPECTED = {
+        {0, 3, 1, 6, 4, 5, 2, 7}, {0, 2, 1, 3, 4, 5, 6, 7},
+        {3, 0, 7, 1, 2, 4, 5, 6}, {0, 4, 5, 7, 3, 1, 2, 6},
+        {0, 5, 7, 4, 1, 2, 3, 6}, {3, 6, 2, 5, 1, 4, 0, 7},
+        {5, 4, 3, 0, 1, 2, 7, 6}, {0, 1, 2, 3, 4, 5, 6, 7}};
 
-    const vector<int> ACTUAL = Rank::sortIndexes(V, false);
-    const vector<int> ACTUAL_REVERSE = Rank::sortIndexes(V, true);
-
-    EXPECT_EQ(EXPECTED, ACTUAL);
-    EXPECT_EQ(EXPECTED_REVERSE, ACTUAL_REVERSE);
+    for (uint i = 0; i < INPUT.size(); ++i) {
+        const vector<int> ACTUAL = Rank::sortIndexes(INPUT[i], true);
+        EXPECT_EQ(EXPECTED[i], ACTUAL);
+    }
 }
 
-TEST(rank, setPrefList) {
-    const vector<vector<int>> V = {{5, 2, 1, 4, 3}, {5, 11, 7, 12, 8}};
+TEST(rank, sortDistances) {
+    const vector<vector<int>> INPUT = {
+        {9, 4, 2, 5, 3, 3, 4, 2},  {10, 9, 10, 9, 9, 9, 9, 1},
+        {8, 5, 4, 9, 3, 2, 1, 7},  {11, 3, 3, 4, 9, 8, 3, 5},
+        {10, 7, 7, 7, 8, 9, 4, 9}, {1, 3, 4, 5, 3, 4, 5, 1},
+        {3, 3, 2, 4, 8, 9, 1, 2},  {1, 1, 1, 1, 1, 1, 1, 1}};
 
-    const vector<vector<int>> EXPECTED_LIST = {{2, 1, 4, 3, 0},
-                                               {0, 2, 4, 1, 3}};
-    const vector<vector<int>> EXPECTED_LIST_REV = {{0, 3, 4, 1, 2},
-                                                   {3, 1, 4, 2, 0}};
-    vector<vector<int>> actualList(V.size());
-    vector<vector<int>> actualListRev(V.size());
+    const vector<vector<int>> EXPECTED = {
+        {0, 3, 1, 6, 4, 5, 2, 7}, {0, 2, 1, 3, 4, 5, 6, 7},
+        {3, 0, 7, 1, 2, 4, 5, 6}, {0, 4, 5, 7, 3, 1, 2, 6},
+        {0, 5, 7, 4, 1, 2, 3, 6}, {3, 6, 2, 5, 1, 4, 0, 7},
+        {5, 4, 3, 0, 1, 2, 7, 6}, {0, 1, 2, 3, 4, 5, 6, 7}};
 
-    Rank::setPreferenceList(V, actualList, false);
-    Rank::setPreferenceList(V, actualListRev, true);
-
-    EXPECT_EQ(EXPECTED_LIST, actualList);
-    EXPECT_EQ(EXPECTED_LIST_REV, actualListRev);
+    for (uint i = 0; i < INPUT.size(); ++i) {
+        const vector<int> ACTUAL = Rank::sortIndexes(INPUT[i], true);
+        EXPECT_EQ(EXPECTED[i], ACTUAL);
+    }
 }
 
 int main(int argc, char **argv) {

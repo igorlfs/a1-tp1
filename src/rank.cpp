@@ -1,25 +1,28 @@
 #include "rank.hpp"
 
-vector<int> Rank::sortIndexes(const vector<int> &v, const bool &reverse) {
-    const int SIZE = v.size();
-    vector<pair<int, int>> elementsAndIndexes(SIZE);
+vector<int> Rank::sortIndexes(const vector<int> &v, const bool &isScore) {
+    vector<int> index(v.size());
 
-    for (int i = 0; i < SIZE; ++i) {
-        elementsAndIndexes.at(i) = {v[i], i};
+    // Preenche o vetor com a sequência incremental 0,1,...
+    iota(index.begin(), index.end(), 0);
+
+    // isScore = true  -> ordem decrescente, com desempate pelo menor índice
+    // isScore = false -> ordem crescente, com desempate pelo menor índice
+    if (isScore) {
+        stable_sort(index.begin(), index.end(),
+                    [&v, &index](const int &a, const int &b) {
+                        return (v[a] > v[b]) ||
+                               (v[a] == v[b] && index[a] < index[b]);
+                    });
+    } else {
+        stable_sort(index.begin(), index.end(),
+                    [&v, &index](const int &a, const int &b) {
+                        return (v[a] < v[b]) ||
+                               (v[a] == v[b] && index[a] < index[b]);
+                    });
     }
 
-    stable_sort(elementsAndIndexes.begin(), elementsAndIndexes.end());
-
-    vector<int> sortedIndexes(SIZE);
-    for (int i = 0; i < SIZE; ++i) {
-        sortedIndexes[i] = elementsAndIndexes[i].second;
-    }
-
-    if (reverse) {
-        std::reverse(sortedIndexes.begin(), sortedIndexes.end());
-    }
-
-    return sortedIndexes;
+    return index;
 };
 
 void Rank::setPreferenceList(const vector<vector<int>> &scores,

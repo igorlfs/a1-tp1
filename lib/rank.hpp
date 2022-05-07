@@ -13,10 +13,14 @@ struct Rank {
 
     /// @brief Ordena os índices de um vetor com base na ordenação do vetor
     /// @param v, vetor a ser ordenado
-    /// @param reverse, define se a ordem é crescente (false) ou decrescente
-    /// (true)
-    /// @return vetor com os índices ordenados
-    vector<int> static sortIndexes(const vector<int> &v, const bool &reverse);
+    /// @param isScore, define como a ordem funciona:
+    /// isScore = true  -> ordem decrescente, com desempate pelo menor índice
+    /// isScore = false -> ordem crescente, com desempate pelo menor índice
+    /// @return vetor tal que a i-ésima posição corresponde ao índice do vetor
+    /// original, se ele fosse ordenado
+    ///
+    /// Exemplo: v = {5, 2, 1, 5, 3}, isScore = true => {0, 3, 4, 1, 2}
+    vector<int> static sortIndexes(const vector<int> &v, const bool &isScore);
 
     /// @brief Construa uma lista de preferências com base nos índices dos
     /// scores ordenados
@@ -36,4 +40,4 @@ struct Rank {
 // @return true se o primeiro elemento de lhs é menor que o de rhs
 inline bool comparator(const pair<int, int> &lhs, const pair<int, int> &rhs) {
     return lhs.first < rhs.first;
-}
+};
