@@ -6,6 +6,7 @@
 
 using std::pair;
 using std::vector;
+using matrix = vector<vector<int>>;
 
 /// @brief Agrupa métodos relacionados ao "rankeamento" de listas de
 /// preferências
@@ -25,14 +26,11 @@ struct Rank {
     /// @brief Construa uma lista de preferências com base nos índices dos
     /// scores ordenados
     /// @param scores, matriz que mapeia a "pontuação" (eg, beleza) de cada
-    /// elemento A (eg, homens) para todo elemento do tipo B (eg, mulheres)
-    /// @param list, lista que recebe a matriz com os índices
-    /// @param reverse, define se a pontuação é descrescente (true) ou crescente
-    /// (false)
-    static void setPreferenceList(const vector<vector<int>> &scores,
-                                  vector<vector<int>> &list,
-                                  const bool &reverse);
-};
+    /// elemento do tipo A (eg, homens) para todo elemento do tipo B (eg,
+    /// mulheres)
+    /// @param isScore, define como as listas devem ser ordenadas
+    /// @return matriz, lista de preferência dos A's
+    static matrix setPreferenceList(const matrix &scores, const bool &isScore);
 
 // @brief Ordene comparando apenas o primeiro elemento
 // @param lhs, par à esquerda

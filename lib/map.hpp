@@ -57,7 +57,7 @@ class Map {
 
     /// @brief Calcula a distância de cada bicicleta para todos os visitantes
     /// @return Matriz com distâncias: linha -> bicicleta, coluna -> visitante
-    vector<vector<int>> getDistancesBikesToVisitors();
+    vector<vector<int>> getDistances();
 
     // Lookup
 

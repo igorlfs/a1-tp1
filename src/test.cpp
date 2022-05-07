@@ -63,7 +63,7 @@ TEST(map, getDistances) {
 
     m.read();
 
-    const vector<vector<int>> ACTUAL = m.getDistancesBikesToVisitors();
+    const vector<vector<int>> ACTUAL = m.getDistances();
 
     EXPECT_EQ(EXPECTED, ACTUAL);
     EXPECT_EQ(EXPECTED, ACTUAL);
@@ -78,7 +78,7 @@ TEST(map, distanceImpossibleToCalculate) {
 
     m.read();
 
-    ASSERT_DEATH(m.getDistancesBikesToVisitors(),
+    ASSERT_DEATH(m.getDistances(),
                  "A distância de '0' para 'a' não pôde ser calculada");
 }
 

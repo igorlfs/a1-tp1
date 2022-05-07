@@ -38,7 +38,7 @@ void Map::print() const {
     }
 }
 
-vector<vector<int>> Map::getDistancesBikesToVisitors() {
+vector<vector<int>> Map::getDistances() {
     vector<vector<int>> distances;
     for (const auto &bike : this->digitsPositions) {
         const pair<int, int> LOCATION = bike.second;

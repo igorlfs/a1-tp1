@@ -25,12 +25,13 @@ vector<int> Rank::sortIndexes(const vector<int> &v, const bool &isScore) {
     return index;
 };
 
-void Rank::setPreferenceList(const vector<vector<int>> &scores,
-                             vector<vector<int>> &list, const bool &reverse) {
+matrix Rank::setPreferenceList(const matrix &scores, const bool &isScore) {
+    matrix list(scores.size());
     for (uint i = 0; i < scores.size(); ++i) {
-        const vector<int> PREF_LIST = Rank::sortIndexes(scores.at(i), reverse);
+        const vector<int> PREF_LIST = Rank::sortIndexes(scores.at(i), isScore);
         list.at(i) = PREF_LIST;
     }
+    return list;
 }
     }
 }
