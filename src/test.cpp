@@ -54,18 +54,23 @@ TEST(map, isValid) {
 }
 
 TEST(map, getDistances) {
-    const vector<vector<int>> EXPECTED{{3, 6}, {5, 2}};
+    const vector<vector<int>> EXPECTED{
+        {8, 6, 13, 11, 10, 2, 1, 10}, {4, 6, 1, 3, 4, 10, 11, 2},
+        {4, 6, 1, 3, 4, 10, 11, 2},   {10, 10, 7, 5, 4, 6, 7, 8},
+        {8, 6, 11, 9, 8, 2, 3, 10},   {6, 8, 1, 1, 2, 12, 13, 4},
+        {11, 9, 8, 6, 5, 5, 6, 9},    {9, 11, 6, 4, 3, 7, 8, 7}};
 
-    const string INPUT = "a**0\n--**\n*-**\nb*1*\n";
+    const string INPUT =
+        "*b*a*h*\n*----*2\n*----1c\nfg---*5\n*0---*d\n4----*e\n**637**";
     istringstream fakeInput(INPUT);
-    constexpr int MAP_SIZE = 4;
+
+    constexpr int MAP_SIZE = 7;
     Map m(MAP_SIZE, MAP_SIZE, fakeInput);
 
     m.read();
 
     const vector<vector<int>> ACTUAL = m.getDistances();
 
-    EXPECT_EQ(EXPECTED, ACTUAL);
     EXPECT_EQ(EXPECTED, ACTUAL);
 }
 
