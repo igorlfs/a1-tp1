@@ -1,4 +1,6 @@
 #include "rank.hpp"
+#include "msgassert.hpp"
+#include <queue>
 
 vector<int> Rank::sortIndexes(const vector<int> &v, const bool &isScore) {
     vector<int> index(v.size());
@@ -33,5 +35,52 @@ matrix Rank::setPreferenceList(const matrix &scores, const bool &isScore) {
     }
     return list;
 }
+
+vector<int> Rank::galeShapley(const matrix &manPref, const matrix &womanPref) {
+    assert(manPref.size() == womanPref.size(),
+           "É necesário que as listas de preferência tenham tamanhos iguais.\n"
+               << "O tamanho de manPref é " << manPref.size()
+               << " e o de womanPref é " << womanPref.size() << std::endl);
+
+    const int SIZE = manPref.size();
+    vector<pair<int, int>> stableMatches(SIZE);
+
+    // Inicializa fila com todos os "homens"
+    std::queue<int> freeMen;
+    for (int i = 0; i < SIZE; ++i) {
+        freeMen.push(i);
     }
+
+    // Armazena a próxima "mulher" para cada "homem"
+    vector<int> next(SIZE, 0);
+
+    // Mantém uma lista com os "maridos" atuais de cada "mulher"
+    constexpr short UNENGAGED = -1;
+    vector<int> current(SIZE, UNENGAGED);
+
+    // Matriz com as posições de cada "homem" em relação a cada "mulher"
+    matrix ranking(SIZE);
+    for (auto &it : ranking) {
+        it.resize(SIZE);
+    }
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            ranking[i][womanPref[i][j]] = j;
+        }
+    }
+
+    while (!freeMen.empty()) {
+        int man = freeMen.front();
+        int woman = manPref[man][next[man]++];
+        if (current[woman] == UNENGAGED) {
+            current[woman] = man;
+            freeMen.pop();
+        } else if ((ranking[woman][man] < ranking[woman][current[woman]])) {
+            freeMen.pop();
+            freeMen.push(current[woman]);
+            current[woman] = man;
+        }
+    }
+
+    return current;
 }

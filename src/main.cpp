@@ -4,6 +4,8 @@
 #include <iostream>
 
 using std::cin;
+using std::cout;
+using std::endl;
 using std::vector;
 
 using matrix = vector<vector<int>>;
@@ -42,9 +44,12 @@ int main() {
     const matrix SCORES = readScores(visitors);
     const matrix LIST_VISITORS = Rank::setPreferenceList(SCORES, true);
 
-    vector<vector<int>> bikeScores = readScores(visitors);
-    vector<vector<int>> prefListVisitors(visitors);
-    Rank::setPreferenceList(bikeScores, prefListVisitors, true);
+    const vector<int> STABLE_MATCHES =
+        Rank::galeShapley(LIST_BIKES, LIST_VISITORS);
+
+    for (uint i = 0; i < STABLE_MATCHES.size(); ++i) {
+        cout << (char)(i + 'a') << ' ' << STABLE_MATCHES[i] << endl;
+    }
 
     return 0;
 }

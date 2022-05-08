@@ -32,10 +32,10 @@ struct Rank {
     /// @return matriz, lista de preferência dos A's
     static matrix setPreferenceList(const matrix &scores, const bool &isScore);
 
-// @brief Ordene comparando apenas o primeiro elemento
-// @param lhs, par à esquerda
-// @param rhs, par à direita
-// @return true se o primeiro elemento de lhs é menor que o de rhs
-inline bool comparator(const pair<int, int> &lhs, const pair<int, int> &rhs) {
-    return lhs.first < rhs.first;
+    /// @brief Cria um casamento estável a partir de duas listas de preferências
+    /// @param manPref, lista de preferências do lado proponente
+    /// @param womanPref, lista de preferências do lado que recebe propostas
+    /// @return vetor com os "maridos" de cada "mulher"
+    static vector<int> galeShapley(const matrix &manPref,
+                                   const matrix &womanPref);
 };

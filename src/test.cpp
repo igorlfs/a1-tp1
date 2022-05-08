@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 
 using namespace std;
+using matrix = vector<vector<int>>;
 
 TEST(map, readAndPrint) {
     const int NUM_VISITORS = 2;
@@ -125,6 +126,31 @@ TEST(rank, sortDistances) {
     }
 }
 
+TEST(rank, invalidMatrices) {
+    const matrix A(1);
+    const matrix B(2);
+    EXPECT_DEATH(
+        Rank::galeShapley(A, B),
+        "É necesário que as listas de preferência tenham tamanhos iguais.\n");
+}
+
+TEST(rank, galeShapley) {
+    const vector<int> EXPECTED = {6, 0, 1, 5, 7, 3, 4, 2};
+
+    const matrix PREF_MEN = {
+        {6, 5, 1, 0, 4, 7, 3, 2}, {2, 7, 3, 0, 4, 1, 5, 6},
+        {2, 7, 3, 0, 4, 1, 5, 6}, {4, 3, 5, 2, 6, 7, 0, 1},
+        {5, 6, 1, 0, 4, 3, 7, 2}, {2, 3, 4, 7, 0, 1, 5, 6},
+        {4, 5, 3, 6, 2, 1, 7, 0}, {4, 3, 2, 5, 7, 6, 0, 1}};
+    const matrix PREF_WOMEN = {
+        {0, 3, 1, 6, 4, 5, 2, 7}, {0, 2, 1, 3, 4, 5, 6, 7},
+        {3, 0, 7, 1, 2, 4, 5, 6}, {0, 4, 5, 7, 3, 1, 2, 6},
+        {0, 5, 7, 4, 1, 2, 3, 6}, {3, 6, 2, 5, 1, 4, 0, 7},
+        {5, 4, 3, 0, 1, 2, 7, 6}, {0, 1, 2, 3, 4, 5, 6, 7}};
+    const vector<int> ACTUAL = Rank::galeShapley(PREF_MEN, PREF_WOMEN);
+
+    EXPECT_EQ(ACTUAL, EXPECTED);
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
