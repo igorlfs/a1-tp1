@@ -27,26 +27,34 @@ vector<vector<int>> readScores(const int &size) {
 
 /// @brief executa o programa principal
 int main() {
+    // Leitura de parâmetros
     int visitors;
     int mapRows;
     int mapCols;
     cin >> visitors >> mapRows >> mapCols;
 
+    // Leitura do mapa
     Map regionMap(mapRows, mapCols);
     const int V = regionMap.read();
     assert(V == visitors, "O número de visitantes no mapa ("
                               << V << ") não é igual ao passado na entrada ("
                               << visitors << ")\n");
 
+    // Cria "listas de preferências" das bicicletas com base na distância aos
+    // visitantes
     const matrix DISTANCES = regionMap.getDistances();
     const matrix LIST_BIKES = Rank::setPreferenceList(DISTANCES, false);
 
+    // Ordena as pontuações dos visitantes para que se comportem como listas de
+    // preferências
     const matrix SCORES = readScores(visitors);
     const matrix LIST_VISITORS = Rank::setPreferenceList(SCORES, true);
 
+    // Com as listas em mãos, rode o GS para encontrar um casamento estável
     const vector<int> STABLE_MATCHES =
         Rank::galeShapley(LIST_BIKES, LIST_VISITORS);
 
+    // Imprime saída
     for (uint i = 0; i < STABLE_MATCHES.size(); ++i) {
         cout << (char)(i + 'a') << ' ' << STABLE_MATCHES[i] << endl;
     }
