@@ -3,16 +3,11 @@ BUILD_DIR = obj
 SRC_DIR = src
 LIB_DIR = lib
 
-# TODO: use g++
 # Compiler
-CXX = clang++
-#CXX = g++
+CXX = g++
 
 # Flags: Compile, more warnings, use C++17, enable debugging symbols and include path
-# clang++
-CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -fstandalone-debug -I$(LIB_DIR)
-# g++
-#CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -I$(LIB_DIR)
+CXXFLAGS = -c -Wall -Wextra -Wshadow -Wpedantic -std=c++17 -g -I$(LIB_DIR)
 
 # Binaries
 TARGET = tp01
@@ -30,10 +25,8 @@ OBJ = $(subst .cpp,.o,$(subst $(SRC_DIR),$(BUILD_DIR),$(CPP_SOURCE)))
 # Command used at clean target
 RM = rm -rf
  
-#
 # Compilation and linking
-#
-all: obj $(TARGET) $(TESTS)
+all: obj $(TARGET)
 
 $(TARGET): $(OBJ) ./$(BUILD_DIR)/main.o
 	$(CXX) $^ -o $@
