@@ -17,7 +17,7 @@ vector<vector<int>> readScores(const int &size) {
     vector<vector<int>> scores(size);
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            char c;
+            int c;
             cin >> c;
             scores.at(i).push_back(c);
         }
