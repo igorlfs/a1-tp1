@@ -34,6 +34,8 @@ class Map {
     /// @brief Aloca memória para um mapa de dimensões n x m
     /// @param n, número de linhas do mapa
     /// @param m, número de colunas do mapa
+    /// @param _istream, arquivo de entrada
+    /// @param _ostream, arquivo de saída
     Map(const int &n, const int &m, istream &_istream = std::cin,
         ostream &_ostream = std::cout);
 
@@ -53,6 +55,7 @@ class Map {
     map<char, pair<int, int>> getBikes() const { return this->digitsPositions; }
 
     /// @brief Retorne a matriz que representa o mapa
+    /// @return Matriz que representa o mapa
     vector<vector<char>> getMap() const { return this->charMap; }
 
     /// @brief Calcula a distância de cada bicicleta para todos os visitantes
