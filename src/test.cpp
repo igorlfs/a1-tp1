@@ -1,9 +1,60 @@
+#include "input.hpp"
 #include "map.hpp"
 #include "rank.hpp"
 #include <gtest/gtest.h>
 
 using namespace std;
 using matrix = vector<vector<int>>;
+
+int visitors = 2;
+int mapRows;
+int mapCols;
+
+TEST(input, readScores) {
+    const matrix EXPECTED = {{12, 123}, {32, 11}};
+    const string INPUT = "12 123\n32 11\n";
+    stringstream fakeInput(INPUT);
+    const matrix ACTUAL = Input::readScores(fakeInput);
+
+    EXPECT_EQ(EXPECTED, ACTUAL);
+}
+
+TEST(input, readParameters) {
+    const int VISITORS = 8;
+    const int ROWS = 15;
+    const int COLS = 16;
+
+    const string INPUT = "8\n15 16\n";
+    stringstream fakeInput(INPUT);
+    Input::readParameters(fakeInput);
+
+    EXPECT_EQ(VISITORS, visitors);
+    EXPECT_EQ(ROWS, mapRows);
+    EXPECT_EQ(COLS, mapCols);
+}
+
+TEST(input, readParametersExceptions) {
+    // Valores negativos
+    string input = "-1\n15 16\n";
+    stringstream fakeInput(input);
+    ASSERT_DEATH(Input::readParameters(fakeInput),
+                 "O número de visitantes '-1' é negativo\n");
+    input = "1\n-1 16\n";
+    fakeInput.str(input);
+    ASSERT_DEATH(Input::readParameters(fakeInput),
+                 "O número de linhas '-1' é negativo\n");
+    input = "1\n1 -1\n";
+    fakeInput.str(input);
+    ASSERT_DEATH(Input::readParameters(fakeInput),
+                 "O número de colunas '-1' é negativo\n");
+
+    // Valores acima do esperado
+    input = "11\n1 1\n";
+    fakeInput.str(input);
+    ASSERT_DEATH(
+        Input::readParameters(fakeInput),
+        "O número de visitantes '11' é maior do que o permitido '10'\n");
+}
 
 TEST(map, readAndPrint) {
     const int NUM_VISITORS = 2;
