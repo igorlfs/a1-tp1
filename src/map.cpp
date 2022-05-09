@@ -58,9 +58,8 @@ vector<int> Map::BFS(const int &row, const int &col) const {
     }
 
     // Visita a "raiz"
-    const Cell SOURCE(row, col, 0);
     queue<Cell> queue;
-    queue.push(SOURCE);
+    queue.push({row, col, 0});
     visited.at(row).at(col) = true;
 
     while (!queue.empty()) {
