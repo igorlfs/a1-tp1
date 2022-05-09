@@ -43,7 +43,6 @@ vector<int> Rank::galeShapley(const matrix &manPref, const matrix &womanPref) {
                << " e o de womanPref é " << womanPref.size() << std::endl);
 
     const int SIZE = manPref.size();
-    vector<pair<int, int>> stableMatches(SIZE);
 
     // Inicializa fila com todos os "homens"
     std::queue<int> freeMen;
@@ -70,15 +69,16 @@ vector<int> Rank::galeShapley(const matrix &manPref, const matrix &womanPref) {
     }
 
     while (!freeMen.empty()) {
-        int man = freeMen.front();
-        int woman = manPref[man][next[man]++];
-        if (current[woman] == UNENGAGED) {
-            current[woman] = man;
+        const int MAN = freeMen.front();
+        const int WOMAN = manPref[MAN][next[MAN]];
+        next[MAN]++;
+        if (current[WOMAN] == UNENGAGED) {
+            current[WOMAN] = MAN;
             freeMen.pop();
-        } else if ((ranking[woman][man] < ranking[woman][current[woman]])) {
+        } else if ((ranking[WOMAN][MAN] < ranking[WOMAN][current[WOMAN]])) {
             freeMen.pop();
-            freeMen.push(current[woman]);
-            current[woman] = man;
+            freeMen.push(current[WOMAN]);
+            current[WOMAN] = MAN;
         }
     }
 
