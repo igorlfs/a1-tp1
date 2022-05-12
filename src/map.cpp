@@ -48,6 +48,7 @@ vector<vector<int>> Map::getDistances() {
 }
 
 vector<int> Map::BFS(const int &row, const int &col) const {
+    short numVisited = 0;
     constexpr short INVALID_DISTANCE = -1;
     vector<int> distances(this->V, INVALID_DISTANCE);
 
@@ -70,6 +71,14 @@ vector<int> Map::BFS(const int &row, const int &col) const {
         if (isalpha(C) != 0) {
             // Converte letra para o correspondente inteiro, eg 'a' -> 0, etc
             distances.at((int)C - 'a') = CELL.dist;
+            numVisited++;
+
+            // Em algumas instâncias (mapas grandes mas com objetos próximos)
+            // pode ser vantajoso (em termos de eficiência) parar a busca ao
+            // encontrar a distância de todos os visitantes
+            if (numVisited == this->V) {
+                break;
+            }
         }
 
         this->BFSHelper(visited, queue, CELL);
