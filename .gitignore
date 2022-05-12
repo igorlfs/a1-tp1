@@ -7,3 +7,8 @@
 tp01
 tests
 obj
+
+# Documentation
+doc/*
+!doc/documentação.tex
+!doc/documentação.pdf
