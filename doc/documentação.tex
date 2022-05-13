@@ -76,8 +76,7 @@ Com as distâncias em mãos (ou, similarmente, com os \textit{rankings} de cada 
 
 Assim, a linha que corresponde às distâncias de uma bicicleta é ordenada e é feita uma correspondência a partir dos índices na linha desordenada. Suponha que no mapa existam 5 bicicletas e 5 visitantes, sendo que as distâncias da bicicleta 0 em relação aos visitantes seja (5,2,1,5,3). Considerando essa quíntupla ordenada como um vetor e ordenando-o: (1,2,3,5,5), que correspondendo aos índices das posições originais resulta na seguinte ``lista de preferências'': \footnote{É claro que um objeto não tem preferências, mas as distâncias se comportam como critério de preferências nesse problema.} (2,1,4,0,3). Repetindo esse processo para todas as bicicletas e visitantes, as listas de preferências estão criadas e basta fazer o casamento estável.
 
-% TODO: fix?
-O casamento estável é feito com o algoritmo de Gale-Shapley (GS), em que as bicicletas propõem aos visitantes (ou seja, ele é ótimo para as bicicletas). O GS produz um casamento tal que nenhuma bicicleta \( b_1 \) que foi alocada a um visitante \( v_1 \) vai preferir um visitante \( v_2 \) (alocado a uma bicicleta \( b_2 \)) e esse visitante simultaneamente também irá preferir \( b_1 \) a \( b_2 \).
+O casamento estável é feito com o algoritmo de Gale-Shapley (GS), em que os visitantes propõem às bicicletas (ou seja, ele é ótimo para os visitantes), vide \textit{thread} no fórum. O GS produz um casamento tal que nenhuma bicicleta \( b_1 \) que foi alocada a um visitante \( v_1 \) vai preferir um visitante \( v_2 \) (alocado a uma bicicleta \( b_2 \)) e esse visitante simultaneamente também irá preferir \( b_1 \) a \( b_2 \).
 
 \section{Estruturas de Dados e Algoritmos}
 
@@ -151,6 +150,6 @@ Desse modo, o único candidato a ``gargalo'' do programa (fora a leitura do mapa
 
 No máximo, para cada vértice são verificados 4 vizinhos, então essa medida será tomada como constante. E um vértice nunca é visitado mais de uma vez. Quando nenhum vértice está bloqueado de ser visitado (isto é, é um caractere proibido), todos os vértice são visitados. Desse modo, podemos estabelecer como teto para a execução dessa função \( \Theta(4MN) = \Theta(MN) \).
 
-Concluímos então que a execução de uma BFS é \( \Theta(MN) \), mas o número de vezes que essa função é executada depende do número de visitantes, que como suposto anteriormente, não pode ser maior que 10. Portanto, a complexidade do programa como um todo é \( \Theta(MN) \), com o cálculo das distâncias como etapa mais custosa.
+Concluímos então que a execução de uma BFS é \( \Theta(MN) \), mas o número de vezes que essa função é executada depende do número de visitantes, que como suposto anteriormente, não pode ser maior que 10. Portanto, a complexidade do programa como um todo é \( \Theta(MN) \), com o cálculo das distâncias como etapa mais custosa computacionalmente.
 
 \end{document}
