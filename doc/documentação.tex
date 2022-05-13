@@ -152,4 +152,20 @@ No máximo, para cada vértice são verificados 4 vizinhos, então essa medida s
 
 Concluímos então que a execução de uma BFS é \( \Theta(MN) \), mas o número de vezes que essa função é executada depende do número de visitantes, que como suposto anteriormente, não pode ser maior que 10. Portanto, a complexidade do programa como um todo é \( \Theta(MN) \), com o cálculo das distâncias como etapa mais custosa computacionalmente.
 
+\section{Compilação}
+
+Caso o comando \code{make} esteja indisponível, o programa pode ser compilado com a seguinte sequência de comandos:
+
+\texttt{mkdir obj}
+
+\texttt{g++ src/input.cpp -c -Wall -std=c++17 -g -Ilib -o obj/input.o}
+
+\texttt{g++ src/map.cpp -c -Wall -std=c++17 -g -Ilib -o obj/map.o}
+
+\texttt{g++ src/rank.cpp -c -Wall -std=c++17 -g -Ilib -o obj/rank.o}
+
+\texttt{g++ src/main.cpp -c -Wall -std=c++17 -g -Ilib -o obj/main.o}
+
+\texttt{g++ obj/input.o obj/map.o obj/rank.o obj/main.o -o tp01}
+
 \end{document}
