@@ -35,7 +35,10 @@ struct Rank {
     /// @brief Cria um casamento estável a partir de duas listas de preferências
     /// @param manPref, lista de preferências do lado proponente
     /// @param womanPref, lista de preferências do lado que recebe propostas
-    /// @return vetor com os "maridos" de cada "mulher"
+    /// @return vetor com o casamento, indexado pelo lado que recebe propostas
+    ///
+    /// Exemplo: manPref = {{1,0}, {1,0}}, womanPref = {{0,1}, {0,1}} => {1, 0}
+    /// (mulher 0 fica com o homem 1 e mulher 1 fica com o homem 0)
     static vector<int> galeShapley(const matrix &manPref,
                                    const matrix &womanPref);
 };

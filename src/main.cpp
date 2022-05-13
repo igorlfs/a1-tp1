@@ -38,11 +38,15 @@ int main() {
 
     // Com as listas em mãos, rode o GS para encontrar um casamento estável
     const vector<int> STABLE_MATCHES =
-        Rank::galeShapley(LIST_BIKES, LIST_VISITORS);
+        Rank::galeShapley(LIST_VISITORS, LIST_BIKES);
 
     // Imprime saída
+    map<char, int> results;
     for (uint i = 0; i < STABLE_MATCHES.size(); ++i) {
-        cout << (char)(i + 'a') << ' ' << STABLE_MATCHES[i] << endl;
+        results[(char)(STABLE_MATCHES[i] + 'a')] = i;
+    }
+    for (auto &result : results) {
+        cout << result.first << ' ' << result.second << endl;
     }
 
     return 0;
