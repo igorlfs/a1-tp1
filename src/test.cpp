@@ -152,8 +152,8 @@ TEST(rank, sortScores) {
         {5, 4, 3, 0, 1, 2, 7, 6}, {0, 1, 2, 3, 4, 5, 6, 7}};
 
     for (uint i = 0; i < INPUT.size(); ++i) {
-        const vector<int> ACTUAL = Rank::sortIndexes(INPUT[i], true);
-        EXPECT_EQ(EXPECTED[i], ACTUAL);
+        const vector<int> ACTUAL = Rank::sortIndexes(INPUT.at(i), true);
+        EXPECT_EQ(EXPECTED.at(i), ACTUAL);
     }
 }
 
@@ -170,8 +170,8 @@ TEST(rank, sortDistances) {
         {5, 4, 3, 0, 1, 2, 7, 6}, {0, 1, 2, 3, 4, 5, 6, 7}};
 
     for (uint i = 0; i < INPUT.size(); ++i) {
-        const vector<int> ACTUAL = Rank::sortIndexes(INPUT[i], true);
-        EXPECT_EQ(EXPECTED[i], ACTUAL);
+        const vector<int> ACTUAL = Rank::sortIndexes(INPUT.at(i), true);
+        EXPECT_EQ(EXPECTED.at(i), ACTUAL);
     }
 }
 

@@ -13,14 +13,16 @@ vector<int> Rank::sortIndexes(const vector<int> &v, const bool &isScore) {
     if (isScore) {
         stable_sort(index.begin(), index.end(),
                     [&v, &index](const int &a, const int &b) {
-                        return (v[a] > v[b]) ||
-                               (v[a] == v[b] && index[a] < index[b]);
+                        return (v.at(a) > v.at(b)) ||
+                               (v.at(a) == v.at(b) &&
+                                index.at(a) < index.at(b));
                     });
     } else {
         stable_sort(index.begin(), index.end(),
                     [&v, &index](const int &a, const int &b) {
-                        return (v[a] < v[b]) ||
-                               (v[a] == v[b] && index[a] < index[b]);
+                        return (v.at(a) < v.at(b)) ||
+                               (v.at(a) == v.at(b) &&
+                                index.at(a) < index.at(b));
                     });
     }
 
@@ -72,6 +74,7 @@ vector<int> Rank::galeShapley(const matrix &manPref, const matrix &womanPref) {
         const int MAN = freeMen.front();
         const int WOMAN = manPref[MAN][next[MAN]];
         next[MAN]++;
+
         if (current[WOMAN] == UNENGAGED) {
             current[WOMAN] = MAN;
             freeMen.pop();

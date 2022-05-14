@@ -43,7 +43,7 @@ int main() {
     // Imprime saída
     map<char, int> results;
     for (uint i = 0; i < STABLE_MATCHES.size(); ++i) {
-        results[(char)(STABLE_MATCHES[i] + 'a')] = i;
+        results[(char)(STABLE_MATCHES.at(i) + 'a')] = i;
     }
     for (auto &result : results) {
         cout << result.first << ' ' << result.second << endl;
