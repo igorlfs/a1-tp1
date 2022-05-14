@@ -30,26 +30,21 @@ all: obj $(TARGET)
 
 $(TARGET): $(OBJ) ./$(BUILD_DIR)/main.o
 	$(CXX) $^ -o $@
-	@ echo ' '
  
 ./$(BUILD_DIR)/main.o: ./$(SRC_DIR)/main.cpp $(HPP_SOURCE)
 	$(CXX) $< $(CXXFLAGS) -o $@
-	@ echo ' '
 
 test: obj $(TESTS)
 
 $(TESTS): $(OBJ) $(BUILD_DIR)/test.o
 	$(CXX) $^ -lgtest -o $@
-	@ echo ' '
 	./$(TESTS)
 
 ./$(BUILD_DIR)/test.o: ./$(SRC_DIR)/test.cpp $(HPP_SOURCE)
 	$(CXX) $< $(CXXFLAGS) -o $@
-	@ echo ' '
 
 ./$(BUILD_DIR)/%.o: ./$(SRC_DIR)/%.cpp ./$(LIB_DIR)/%.hpp
 	$(CXX) $< $(CXXFLAGS) -o $@
-	@ echo ' '
  
 obj:
 	@ test -d $(BUILD_DIR) && true || mkdir -p $(BUILD_DIR)
